@@ -28,10 +28,10 @@ export const Navbar: React.FC = () => {
           ? 'bg-black/80 backdrop-blur-xl border border-white/15 shadow-2xl'
           : 'liquid-glass border border-white/10'
       }`}>
-        {/* Left: Logo text "NP" */}
-        <a href="#" className="text-2xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity flex items-center gap-2">
-          <span className="bg-white text-black px-2.5 py-0.5 rounded-lg text-xl font-black">NP</span>
-          <span className="text-sm font-light text-gray-300 hidden sm:inline">Nidhi Properties</span>
+        {/* Left: Logo text "Nidhi Properties" */}
+        <a href="#" className="text-xl md:text-2xl font-semibold tracking-tight text-white hover:opacity-90 transition-opacity flex items-center gap-2">
+          <span className="bg-white text-black px-2.5 py-1 rounded-xl text-xs font-bold uppercase tracking-wider">NP</span>
+          <span className="text-lg md:text-xl font-normal text-white">Nidhi Properties</span>
         </a>
 
         {/* Center: Links */}
