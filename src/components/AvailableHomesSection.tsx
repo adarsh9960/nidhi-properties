@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
+import { AnimatedHeading } from './AnimatedHeading';
 import { Bed, Bath, Maximize2, MapPin, ArrowUpRight, Filter } from 'lucide-react';
 import { HomeModal, type HomeProperty } from './HomeModal';
 
@@ -151,18 +152,24 @@ export const AvailableHomesSection: React.FC<AvailableHomesSectionProps> = ({ fi
   return (
     <section id="homes" className="py-24 px-6 md:px-12 lg:px-16 bg-black relative">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Header with AnimatedHeading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <FadeIn>
-            <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
-              NP Verified Properties
-            </span>
-            <h2 className="text-3xl md:text-5xl font-light text-white tracking-tight">
-              Available Properties by NP
-            </h2>
-          </FadeIn>
+          <div>
+            <FadeIn direction="down" distance={15}>
+              <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
+                NP Verified Properties
+              </span>
+            </FadeIn>
+            <AnimatedHeading
+              as="h2"
+              text={"Available Properties\nby NP Properties."}
+              className="text-3xl md:text-5xl font-light text-white tracking-tight"
+              initialDelay={100}
+              charDelay={25}
+            />
+          </div>
 
-          <FadeIn delay={200}>
+          <FadeIn delay={300} direction="up">
             <p className="text-gray-400 text-sm max-w-md">
               Browse ready-to-move flats, luxury penthouses, and commercial retail shops across Kandivali West, Mahavir Nagar, and Mumbai.
             </p>
@@ -170,18 +177,18 @@ export const AvailableHomesSection: React.FC<AvailableHomesSectionProps> = ({ fi
         </div>
 
         {/* Filters */}
-        <FadeIn delay={300} className="flex flex-wrap items-center justify-between gap-4 mb-12 border-b border-white/10 pb-6">
+        <FadeIn delay={200} direction="up" className="flex flex-wrap items-center justify-between gap-4 mb-12 border-b border-white/10 pb-6">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs text-gray-400 mr-2 flex items-center gap-1">
-              <Filter className="w-3.5 h-3.5" /> Filter Category:
+              <Filter className="w-3.5 h-3.5 text-emerald-400" /> Filter Category:
             </span>
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-medium cursor-pointer transition-all duration-200 border ${
+                className={`px-4 py-2 rounded-xl text-xs font-medium cursor-pointer transition-all duration-300 border ${
                   selectedCategory === cat.id
-                    ? 'bg-white text-black border-white shadow-md'
+                    ? 'bg-white text-black border-white shadow-md scale-105'
                     : 'liquid-glass text-gray-300 border-white/10 hover:border-white/30 hover:text-white'
                 }`}
               >
@@ -198,17 +205,17 @@ export const AvailableHomesSection: React.FC<AvailableHomesSectionProps> = ({ fi
         {/* Property Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredHomes.map((home, idx) => (
-            <FadeIn key={home.id} delay={idx * 100} duration={800}>
+            <FadeIn key={home.id} delay={idx * 120} duration={800} direction="up" distance={30}>
               <div
                 onClick={() => setSelectedHomeModal(home)}
-                className="liquid-glass rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 group cursor-pointer flex flex-col h-full shadow-lg"
+                className="liquid-glass rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 group cursor-pointer flex flex-col h-full shadow-lg hover:-translate-y-2"
               >
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden">
                   <img
                     src={home.image}
                     alt={home.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 

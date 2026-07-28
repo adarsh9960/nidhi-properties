@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
+import { AnimatedHeading } from './AnimatedHeading';
 import { Phone, MapPin, Send, CheckCircle2, ShieldCheck, Clock, CreditCard } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
@@ -19,18 +20,26 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 md:px-12 lg:px-16 bg-neutral-950 text-white relative">
+    <section id="contact" className="py-24 px-6 md:px-12 lg:px-16 bg-neutral-950 text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Direct Info & Office Address */}
-          <FadeIn className="lg:col-span-5 space-y-8">
+          <FadeIn duration={900} direction="right" distance={30} className="lg:col-span-5 space-y-8">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
-                Nidhi Properties • Established 1995
-              </span>
-              <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-6">
-                Contact NP Properties
-              </h2>
+              <FadeIn direction="down" distance={15}>
+                <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
+                  Nidhi Properties • Established 1995
+                </span>
+              </FadeIn>
+
+              <AnimatedHeading
+                as="h2"
+                text={"Contact NP Properties\nKandivali West, Mumbai."}
+                className="text-3xl md:text-5xl font-light tracking-tight mb-6"
+                initialDelay={100}
+                charDelay={25}
+              />
+
               <p className="text-gray-400 text-sm md:text-base leading-relaxed">
                 Visit NP office in Mahavir Nagar Kandivali West, or connect with our consultants for buying, selling, or renting properties in Mumbai.
               </p>
@@ -38,7 +47,7 @@ export const ContactSection: React.FC = () => {
 
             {/* Direct Channels */}
             <div className="space-y-4">
-              <div className="liquid-glass p-4 rounded-xl border border-white/10 flex items-center gap-4">
+              <div className="liquid-glass p-4 rounded-xl border border-white/10 flex items-center gap-4 hover:border-white/25 transition-all duration-300">
                 <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
@@ -50,7 +59,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="liquid-glass p-4 rounded-xl border border-white/10 flex items-center gap-4">
+              <div className="liquid-glass p-4 rounded-xl border border-white/10 flex items-center gap-4 hover:border-white/25 transition-all duration-300">
                 <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                   <Clock className="w-5 h-5 text-emerald-400" />
                 </div>
@@ -62,7 +71,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="liquid-glass p-4 rounded-xl border border-white/10 flex items-center gap-4">
+              <div className="liquid-glass p-4 rounded-xl border border-white/10 flex items-center gap-4 hover:border-white/25 transition-all duration-300">
                 <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
                   <Phone className="w-5 h-5 text-white" />
                 </div>
@@ -96,10 +105,10 @@ export const ContactSection: React.FC = () => {
           </FadeIn>
 
           {/* Right Column: Contact Form */}
-          <FadeIn delay={200} className="lg:col-span-7">
+          <FadeIn duration={900} delay={200} direction="left" distance={30} className="lg:col-span-7">
             <div className="liquid-glass rounded-3xl p-8 md:p-10 border border-white/15 shadow-2xl">
               {formSubmitted ? (
-                <div className="py-16 text-center space-y-4">
+                <div className="py-16 text-center space-y-4 animate-fadeIn">
                   <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
@@ -132,7 +141,7 @@ export const ContactSection: React.FC = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Ramesh Shah"
-                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors"
+                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all duration-300"
                       />
                     </div>
                     <div>
@@ -143,7 +152,7 @@ export const ContactSection: React.FC = () => {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="Mobile or email address"
-                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors"
+                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all duration-300"
                       />
                     </div>
                   </div>
@@ -154,7 +163,7 @@ export const ContactSection: React.FC = () => {
                       <select
                         value={formData.inquiryType}
                         onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-colors"
+                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all duration-300"
                       >
                         <option value="Buy Residential Flat" className="bg-neutral-900">Buy Residential Flat (1/2/3 BHK)</option>
                         <option value="Rent / Lease Apartment" className="bg-neutral-900">Rent / Lease Apartment</option>
@@ -168,7 +177,7 @@ export const ContactSection: React.FC = () => {
                       <select
                         value={formData.locationInterest}
                         onChange={(e) => setFormData({ ...formData, locationInterest: e.target.value })}
-                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-colors"
+                        className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition-all duration-300"
                       >
                         <option value="Mahavir Nagar, Kandivali West" className="bg-neutral-900">Mahavir Nagar, Kandivali West</option>
                         <option value="Kandivali West (General)" className="bg-neutral-900">Kandivali West (General)</option>
@@ -186,13 +195,13 @@ export const ContactSection: React.FC = () => {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Specify budget, BHK requirement, carpet area, or timeline..."
-                      className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors resize-none"
+                      className="w-full bg-black/60 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-white transition-all duration-300 resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-white text-black py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors cursor-pointer shadow-lg"
+                    className="w-full bg-white text-black py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.01]"
                   >
                     <span>Submit Inquiry to NP Properties</span>
                     <Send className="w-4 h-4" />

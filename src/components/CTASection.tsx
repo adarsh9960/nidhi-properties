@@ -1,5 +1,6 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
+import { AnimatedHeading } from './AnimatedHeading';
 import { ArrowRight, Phone, Calendar } from 'lucide-react';
 
 interface CTASectionProps {
@@ -16,37 +17,49 @@ export const CTASection: React.FC<CTASectionProps> = ({ onOpenContact }) => {
         <div className="liquid-glass rounded-3xl p-10 md:p-20 border border-white/20 relative overflow-hidden text-center shadow-2xl">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent pointer-events-none" />
 
-          <FadeIn className="max-w-3xl mx-auto relative z-10">
-            <span className="text-xs uppercase tracking-[0.3em] text-gray-300 font-semibold mb-4 inline-block">
-              30+ Years Trust • Est. 1995
-            </span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-white tracking-tight mb-6 leading-tight">
-              Looking for Your Ideal Property in Kandivali & Mumbai?
-            </h2>
-            <p className="text-gray-300 text-base md:text-xl font-light leading-relaxed mb-10">
-              Connect directly with NP (Nidhi Properties) at Mahavir Nagar, Kandivali West for expert advice on buying, selling, or renting properties.
-            </p>
+          <div className="max-w-3xl mx-auto relative z-10">
+            <FadeIn direction="down" distance={15}>
+              <span className="text-xs uppercase tracking-[0.3em] text-gray-300 font-semibold mb-4 inline-block">
+                30+ Years Trust • Est. 1995
+              </span>
+            </FadeIn>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#contact"
-                onClick={onOpenContact}
-                className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-all duration-300 shadow-xl cursor-pointer"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Contact NP Properties</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+            <AnimatedHeading
+              as="h2"
+              text={"Looking for Your Ideal Property\nin Kandivali & Mumbai?"}
+              className="text-3xl md:text-5xl lg:text-6xl font-light text-white tracking-tight mb-6 leading-tight"
+              initialDelay={100}
+              charDelay={25}
+            />
 
-              <a
-                href="tel:022043126"
-                className="w-full sm:w-auto liquid-glass border border-white/30 text-white px-8 py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Call NP Office</span>
-              </a>
-            </div>
-          </FadeIn>
+            <FadeIn delay={300} direction="up">
+              <p className="text-gray-300 text-base md:text-xl font-light leading-relaxed mb-10">
+                Connect directly with NP (Nidhi Properties) at Mahavir Nagar, Kandivali West for expert advice on buying, selling, or renting properties.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={450} direction="up" distance={20}>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="#contact"
+                  onClick={onOpenContact}
+                  className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-all duration-300 shadow-xl cursor-pointer hover:scale-105"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>Contact NP Properties</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+
+                <a
+                  href="tel:022043126"
+                  className="w-full sm:w-auto liquid-glass border border-white/30 text-white px-8 py-4 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-all duration-300 cursor-pointer hover:scale-105"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Call NP Office</span>
+                </a>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </div>
     </section>

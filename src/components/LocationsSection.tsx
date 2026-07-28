@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
+import { AnimatedHeading } from './AnimatedHeading';
 import { MapPin, Sun, Compass, ChevronRight, Clock } from 'lucide-react';
 
 export interface LocationData {
@@ -86,45 +87,54 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
   const [selectedLoc, setSelectedLoc] = useState<LocationData>(locationsData[0]);
 
   return (
-    <section id="locations" className="py-24 px-6 md:px-12 lg:px-16 bg-neutral-950 text-white relative">
+    <section id="locations" className="py-24 px-6 md:px-12 lg:px-16 bg-neutral-950 text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Header with AnimatedHeading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <FadeIn>
-            <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
-              NP Coverage Areas
-            </span>
-            <h2 className="text-3xl md:text-5xl font-light tracking-tight">
-              Prime Mumbai Locations Served by NP
-            </h2>
-          </FadeIn>
-          <FadeIn delay={200} className="max-w-md text-gray-400 text-sm">
+          <div>
+            <FadeIn direction="down" distance={15}>
+              <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
+                NP Coverage Areas
+              </span>
+            </FadeIn>
+            <AnimatedHeading
+              as="h2"
+              text={"Prime Mumbai Locations\nServed by NP Properties."}
+              className="text-3xl md:text-5xl font-light tracking-tight"
+              initialDelay={100}
+              charDelay={25}
+            />
+          </div>
+
+          <FadeIn delay={300} direction="up" className="max-w-md text-gray-400 text-sm">
             Headquartered in Mahavir Nagar, NP (Nidhi Properties) offers expert real estate deals across Kandivali West, Borivali, and Malad.
           </FadeIn>
         </div>
 
         {/* Location Selector Tabs */}
-        <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-10 no-scrollbar">
-          {locationsData.map((loc) => {
-            const isActive = selectedLoc.id === loc.id;
-            return (
-              <button
-                key={loc.id}
-                onClick={() => setSelectedLoc(loc)}
-                className={`px-5 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-300 cursor-pointer border ${
-                  isActive
-                    ? 'bg-white text-black border-white shadow-lg scale-105'
-                    : 'liquid-glass text-gray-300 border-white/10 hover:border-white/30 hover:text-white'
-                }`}
-              >
-                {loc.name}
-              </button>
-            );
-          })}
-        </div>
+        <FadeIn delay={200} direction="up">
+          <div className="flex items-center gap-3 overflow-x-auto pb-4 mb-10 no-scrollbar">
+            {locationsData.map((loc) => {
+              const isActive = selectedLoc.id === loc.id;
+              return (
+                <button
+                  key={loc.id}
+                  onClick={() => setSelectedLoc(loc)}
+                  className={`px-5 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-300 cursor-pointer border ${
+                    isActive
+                      ? 'bg-white text-black border-white shadow-lg scale-105'
+                      : 'liquid-glass text-gray-300 border-white/10 hover:border-white/30 hover:text-white'
+                  }`}
+                >
+                  {loc.name}
+                </button>
+              );
+            })}
+          </div>
+        </FadeIn>
 
         {/* Selected Location Feature Display */}
-        <FadeIn key={selectedLoc.id} duration={600} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <FadeIn key={selectedLoc.id} duration={600} direction="up" distance={30} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Main Photo Card */}
           <div className="lg:col-span-8 relative rounded-3xl overflow-hidden border border-white/15 min-h-[400px] lg:min-h-[500px] group shadow-2xl">
             <img
@@ -135,7 +145,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
 
             <div className="absolute top-6 left-6 liquid-glass px-4 py-2 rounded-full text-xs font-mono tracking-wider border border-white/15 backdrop-blur-md flex items-center gap-2">
-              <Compass className="w-3.5 h-3.5 text-emerald-400" />
+              <Compass className="w-3.5 h-3.5 text-emerald-400 animate-spin" style={{ animationDuration: '12s' }} />
               <span>{selectedLoc.coordinates}</span>
             </div>
 
@@ -153,7 +163,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
           </div>
 
           {/* Details Sidebar Card */}
-          <div className="lg:col-span-4 liquid-glass rounded-3xl p-8 border border-white/15 flex flex-col justify-between">
+          <div className="lg:col-span-4 liquid-glass rounded-3xl p-8 border border-white/15 flex flex-col justify-between hover:border-white/30 transition-all duration-300">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
                 <div>
@@ -161,7 +171,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
                   <div className="text-3xl font-light text-white">{selectedLoc.homesCount} Listings</div>
                 </div>
                 <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-white" />
+                  <MapPin className="w-6 h-6 text-white animate-bounce" style={{ animationDuration: '3s' }} />
                 </div>
               </div>
 
@@ -191,10 +201,10 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
               <a
                 href="#homes"
                 onClick={() => onSelectLocation?.(selectedLoc.id)}
-                className="w-full bg-white text-black py-3.5 px-6 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors cursor-pointer"
+                className="w-full bg-white text-black py-3.5 px-6 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors cursor-pointer group"
               >
                 <span>Browse {selectedLoc.name} Properties</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>

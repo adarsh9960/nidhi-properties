@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
+import { AnimatedHeading } from './AnimatedHeading';
 import { Star, Quote, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface Review {
@@ -93,19 +94,25 @@ export const ReviewsSection: React.FC = () => {
   return (
     <section id="reviews" className="py-24 px-6 md:px-12 lg:px-16 bg-neutral-950 text-white relative">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+        {/* Section Header with AnimatedHeading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <FadeIn>
-            <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
-              Justdial Verified Feedback
-            </span>
-            <h2 className="text-3xl md:text-5xl font-light tracking-tight">
-              Customer Reviews (4.0 / 5 Rating)
-            </h2>
-          </FadeIn>
+          <div>
+            <FadeIn direction="down" distance={15}>
+              <span className="text-xs uppercase tracking-[0.25em] text-gray-400 font-semibold mb-3 block">
+                Justdial Verified Feedback
+              </span>
+            </FadeIn>
+            <AnimatedHeading
+              as="h2"
+              text={"Customer Reviews & Ratings\n(4.0 / 5 Stars)"}
+              className="text-3xl md:text-5xl font-light tracking-tight"
+              initialDelay={100}
+              charDelay={25}
+            />
+          </div>
 
           {/* Filter Tabs */}
-          <FadeIn delay={200} className="flex items-center gap-2 overflow-x-auto pb-2">
+          <FadeIn delay={200} direction="up" className="flex items-center gap-2 overflow-x-auto pb-2">
             {[
               { id: 'all', label: 'All Feedback' },
               { id: 'buyer', label: 'Home Buyers' },
@@ -118,9 +125,9 @@ export const ReviewsSection: React.FC = () => {
                   setActiveTab(tab.id as any);
                   setCurrentIndex(0);
                 }}
-                className={`px-4 py-2 rounded-xl text-xs font-medium cursor-pointer transition-all duration-200 border ${
+                className={`px-4 py-2 rounded-xl text-xs font-medium cursor-pointer transition-all duration-300 border ${
                   activeTab === tab.id
-                    ? 'bg-white text-black border-white'
+                    ? 'bg-white text-black border-white shadow-md scale-105'
                     : 'liquid-glass text-gray-300 border-white/10 hover:border-white/30'
                 }`}
               >
@@ -132,8 +139,8 @@ export const ReviewsSection: React.FC = () => {
 
         {/* Featured Testimonial Card Slider */}
         {current && (
-          <FadeIn key={current.id} duration={600} className="relative">
-            <div className="liquid-glass rounded-3xl p-8 md:p-14 border border-white/15 relative overflow-hidden shadow-2xl">
+          <FadeIn key={current.id} duration={600} direction="up" distance={25} className="relative">
+            <div className="liquid-glass rounded-3xl p-8 md:p-14 border border-white/15 relative overflow-hidden shadow-2xl transition-all duration-300 hover:border-white/25">
               <Quote className="absolute top-6 right-6 md:top-10 md:right-10 w-24 h-24 text-white/5 pointer-events-none" />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -184,13 +191,13 @@ export const ReviewsSection: React.FC = () => {
                     <div className="flex items-center gap-3">
                       <button
                         onClick={prevReview}
-                        className="w-10 h-10 rounded-full liquid-glass border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors cursor-pointer"
+                        className="w-10 h-10 rounded-full liquid-glass border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
                       >
                         <ChevronLeft className="w-5 h-5" />
                       </button>
                       <button
                         onClick={nextReview}
-                        className="w-10 h-10 rounded-full liquid-glass border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors cursor-pointer"
+                        className="w-10 h-10 rounded-full liquid-glass border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
                       >
                         <ChevronRight className="w-5 h-5" />
                       </button>
@@ -204,22 +211,19 @@ export const ReviewsSection: React.FC = () => {
 
         {/* Mini Trust Badges */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-center">
-          <div className="liquid-glass p-4 rounded-xl border border-white/10">
-            <div className="text-xl font-medium text-white mb-1">4.0 / 5.0</div>
-            <div className="text-[11px] text-gray-400">Justdial Customer Rating</div>
-          </div>
-          <div className="liquid-glass p-4 rounded-xl border border-white/10">
-            <div className="text-xl font-medium text-white mb-1">Est. 1995</div>
-            <div className="text-[11px] text-gray-400">30+ Years Trust in Kandivali</div>
-          </div>
-          <div className="liquid-glass p-4 rounded-xl border border-white/10">
-            <div className="text-xl font-medium text-white mb-1">11+ Ratings</div>
-            <div className="text-[11px] text-gray-400">Verified User Feedback</div>
-          </div>
-          <div className="liquid-glass p-4 rounded-xl border border-white/10">
-            <div className="text-xl font-medium text-white mb-1">20+ Photos</div>
-            <div className="text-[11px] text-gray-400">Verified Office Gallery</div>
-          </div>
+          {[
+            { title: '4.0 / 5.0', subtitle: 'Justdial Customer Rating' },
+            { title: 'Est. 1995', subtitle: '30+ Years Trust in Kandivali' },
+            { title: '11+ Ratings', subtitle: 'Verified User Feedback' },
+            { title: '20+ Photos', subtitle: 'Verified Office Gallery' },
+          ].map((item, idx) => (
+            <FadeIn key={idx} delay={idx * 100} direction="up" distance={15}>
+              <div className="liquid-glass p-4 rounded-xl border border-white/10 hover:border-white/25 transition-all duration-300 hover:-translate-y-1">
+                <div className="text-xl font-medium text-white mb-1">{item.title}</div>
+                <div className="text-[11px] text-gray-400">{item.subtitle}</div>
+              </div>
+            </FadeIn>
+          ))}
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface AnimatedHeadingProps {
   text: string;
@@ -6,37 +6,52 @@ interface AnimatedHeadingProps {
   style?: React.CSSProperties;
   initialDelay?: number; // ms
   charDelay?: number;    // ms
+  as?: 'h1' | 'h2' | 'h3';
 }
 
 export const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
   text,
   className = '',
   style = {},
-  initialDelay = 200,
-  charDelay = 30,
+  initialDelay = 100,
+  charDelay = 25,
+  as: Component = 'h1',
 }) => {
   const [isAnimated, setIsAnimated] = useState(false);
+  const domRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimated(true);
-    }, initialDelay);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              setIsAnimated(true);
+            }, initialDelay);
+            if (domRef.current) observer.unobserve(domRef.current);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    return () => clearTimeout(timer);
+    const currentRef = domRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
   }, [initialDelay]);
 
   const lines = text.split('\n');
-
-  // Compute character delays according to formula:
-  // (lineIndex * lineLength * charDelay) + (charIndex * charDelay)
-  // where lineLength is the length of the first line (or preceding line length)
   const line0Length = lines[0]?.length || 0;
 
   return (
-    <h1 className={className} style={{ letterSpacing: '-0.04em', ...style }}>
+    <Component ref={domRef} className={className} style={{ letterSpacing: '-0.03em', ...style }}>
       {lines.map((line, lineIndex) => {
-        const lineLength = line0Length;
-        const lineBaseDelay = lineIndex * lineLength * charDelay;
+        const lineBaseDelay = lineIndex * line0Length * charDelay;
 
         return (
           <span key={lineIndex} className="block">
@@ -46,12 +61,11 @@ export const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
               return (
                 <span
                   key={charIndex}
-                  className="inline-block transition-all duration-500 ease-out"
+                  className="inline-block transition-all ease-out"
                   style={{
                     opacity: isAnimated ? 1 : 0,
-                    transform: isAnimated ? 'translateX(0)' : 'translateX(-18px)',
-                    transitionProperty: 'opacity, transform',
-                    transitionDuration: '500ms',
+                    transform: isAnimated ? 'translateX(0) translateY(0)' : 'translateX(-12px) translateY(4px)',
+                    transitionDuration: '450ms',
                     transitionDelay: `${delay}ms`,
                   }}
                 >
@@ -62,6 +76,6 @@ export const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
           </span>
         );
       })}
-    </h1>
+    </Component>
   );
 };
