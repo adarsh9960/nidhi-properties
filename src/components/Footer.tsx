@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowUp, Mail, CheckCircle2, Shield, MapPin, Clock, CreditCard } from 'lucide-react';
+import { ArrowUp, Mail, CheckCircle2, Shield, MapPin, Clock, Tag } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   const [subscribed, setSubscribed] = useState(false);
@@ -70,10 +71,10 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16 pb-12 border-b border-white/10">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <a href="#" className="text-3xl font-bold tracking-tight text-white inline-flex items-center gap-2">
+            <Link to="/" className="text-3xl font-bold tracking-tight text-white inline-flex items-center gap-2">
               <span className="bg-white text-black px-3 py-1 rounded-xl text-2xl font-black">NP</span>
               <span className="text-lg font-light text-gray-200">Nidhi Properties</span>
-            </a>
+            </Link>
             <p className="text-xs md:text-sm text-gray-400 max-w-sm leading-relaxed">
               NP (Nidhi Properties) is a premier real estate agency in Mahavir Nagar, Kandivali West, Mumbai. Established in 1995, NP provides transparent buying, selling, and rental property services.
             </p>
@@ -83,43 +84,43 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Column 1: Quick Links */}
+          {/* Column 1: Locations & Micro-markets */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-gray-300 font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-xs uppercase tracking-widest text-gray-300 font-semibold mb-4">Location Guides</h4>
             <ul className="space-y-2.5 text-xs text-gray-400">
-              <li><a href="#about" className="hover:text-white transition-colors">About NP</a></li>
-              <li><a href="#locations" className="hover:text-white transition-colors">Mumbai Locations</a></li>
-              <li><a href="#homes" className="hover:text-white transition-colors">Available Properties</a></li>
-              <li><a href="#reviews" className="hover:text-white transition-colors">Justdial Reviews (4.0/5)</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contact NP Office</a></li>
+              <li><Link to="/properties-in-kandivali-west" className="hover:text-white transition-colors">Properties Kandivali West</Link></li>
+              <li><Link to="/flats-for-sale-mahavir-nagar" className="hover:text-white transition-colors">Flats in Mahavir Nagar</Link></li>
+              <li><Link to="/properties-in-borivali-west" className="hover:text-white transition-colors">Borivali West Real Estate</Link></li>
+              <li><Link to="/properties-in-malad-west" className="hover:text-white transition-colors">Malad West Real Estate</Link></li>
+              <li><Link to="/real-estate-agent-kandivali-west" className="hover:text-white transition-colors">About Nidhi Properties</Link></li>
             </ul>
           </div>
 
-          {/* Column 2: Property Types */}
+          {/* Column 2: Property Categories */}
           <div>
             <h4 className="text-xs uppercase tracking-widest text-gray-300 font-semibold mb-4">Property Categories</h4>
             <ul className="space-y-2.5 text-xs text-gray-400">
-              <li><a href="#homes" className="hover:text-white transition-colors">1 BHK Apartments</a></li>
-              <li><a href="#homes" className="hover:text-white transition-colors">2 BHK Family Homes</a></li>
-              <li><a href="#homes" className="hover:text-white transition-colors">3 BHK Luxury Flats</a></li>
-              <li><a href="#homes" className="hover:text-white transition-colors">Commercial Shops</a></li>
-              <li><a href="#homes" className="hover:text-white transition-colors">Rental Flats in Kandivali</a></li>
-              <li><a href="#homes" className="hover:text-white transition-colors">Penthouse & Duplex</a></li>
+              <li><Link to="/1bhk-flats-kandivali-west" className="hover:text-white transition-colors">1 BHK Starter Apartments</Link></li>
+              <li><Link to="/2bhk-flats-kandivali-west" className="hover:text-white transition-colors">2 BHK Family Homes</Link></li>
+              <li><Link to="/3bhk-luxury-flats-kandivali" className="hover:text-white transition-colors">3 BHK Luxury Penthouses</Link></li>
+              <li><Link to="/commercial-property-kandivali-west" className="hover:text-white transition-colors">Commercial Shop & Office</Link></li>
+              <li><Link to="/rental-flats-kandivali-west" className="hover:text-white transition-colors">Rental Flats & Agreements</Link></li>
+              <li><Link to="/resale-flats-kandivali-west" className="hover:text-white transition-colors">Title Verified Resale Flats</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Payment Options */}
+          {/* Column 3: Advisory & Keyword Directory */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-gray-300 font-semibold mb-4 flex items-center gap-1">
-              <CreditCard className="w-3.5 h-3.5 text-emerald-400" /> Payment Modes
-            </h4>
-            <ul className="space-y-2 text-[11px] text-gray-400">
-              <li>• Visa / MasterCard / Rupay</li>
-              <li>• American Express</li>
-              <li>• EMI Financing Options</li>
-              <li>• Cheque / Demand Draft</li>
-              <li>• Cash Payment</li>
-              <li>• Diners Club</li>
+            <h4 className="text-xs uppercase tracking-widest text-gray-300 font-semibold mb-4">Advisory & Search Index</h4>
+            <ul className="space-y-2.5 text-xs text-gray-400">
+              <li><Link to="/property-valuation-kandivali" className="hover:text-white transition-colors">Property Valuation Service</Link></li>
+              <li><Link to="/nri-real-estate-services-mumbai" className="hover:text-white transition-colors">NRI Property Management</Link></li>
+              <li><Link to="/home-loans-property-consultant" className="hover:text-white transition-colors">Home Loan Assistance</Link></li>
+              <li>
+                <Link to="/seo-keywords-directory" className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors flex items-center gap-1">
+                  <Tag className="w-3.5 h-3.5" /> 100 Search Keywords Index
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

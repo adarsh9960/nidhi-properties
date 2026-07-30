@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { AnimatedHeading } from './components/AnimatedHeading';
 import { FadeIn } from './components/FadeIn';
@@ -9,9 +10,39 @@ import { ReviewsSection } from './components/ReviewsSection';
 import { CTASection } from './components/CTASection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { SEOHead } from './components/SEOHead';
+import { SEO_PAGES_META } from './data/seoData';
 
-export function App() {
+// Import SEO Pages
+import { PropertiesKandivaliWest } from './pages/PropertiesKandivaliWest';
+import { FlatsMahavirNagar } from './pages/FlatsMahavirNagar';
+import { OneBhkKandivali } from './pages/OneBhkKandivali';
+import { TwoBhkKandivali } from './pages/TwoBhkKandivali';
+import { ThreeBhkLuxury } from './pages/ThreeBhkLuxury';
+import { CommercialProperty } from './pages/CommercialProperty';
+import { RentalFlats } from './pages/RentalFlats';
+import { ResaleFlats } from './pages/ResaleFlats';
+import { PropertiesBorivaliWest } from './pages/PropertiesBorivaliWest';
+import { PropertiesMaladWest } from './pages/PropertiesMaladWest';
+import { RealEstateAgentKandivali } from './pages/RealEstateAgentKandivali';
+import { PropertyValuation } from './pages/PropertyValuation';
+import { NriRealEstateServices } from './pages/NriRealEstateServices';
+import { HomeLoansConsultant } from './pages/HomeLoansConsultant';
+import { SeoKeywordsDirectory } from './pages/SeoKeywordsDirectory';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+function HomePage() {
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+  const homeMeta = SEO_PAGES_META["/"];
 
   const handleSelectLocation = (locId: string) => {
     setSelectedLocationId(locId);
@@ -22,9 +53,8 @@ export function App() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-black text-white font-sans selection:bg-white selection:text-black">
-      {/* Sticky/Fixed Navbar */}
-      <Navbar />
+    <>
+      <SEOHead meta={homeMeta} />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-end pb-16 pt-32 px-6 md:px-12 lg:px-16 overflow-hidden">
@@ -54,7 +84,7 @@ export function App() {
 
             <AnimatedHeading
               text={"NP (Nidhi Properties)\nYour Trusted Real Estate Partner."}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight mb-6 text-white"
               initialDelay={200}
               charDelay={30}
             />
@@ -104,10 +134,45 @@ export function App() {
         <CTASection />
         <ContactSection />
       </main>
+    </>
+  );
+}
 
-      {/* Footer */}
-      <Footer />
-    </div>
+export function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="relative min-h-screen flex flex-col bg-black text-white font-sans selection:bg-white selection:text-black">
+        {/* Sticky/Fixed Navbar */}
+        <Navbar />
+
+        {/* Dynamic Route Pages */}
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/properties-in-kandivali-west" element={<PropertiesKandivaliWest />} />
+            <Route path="/flats-for-sale-mahavir-nagar" element={<FlatsMahavirNagar />} />
+            <Route path="/1bhk-flats-kandivali-west" element={<OneBhkKandivali />} />
+            <Route path="/2bhk-flats-kandivali-west" element={<TwoBhkKandivali />} />
+            <Route path="/3bhk-luxury-flats-kandivali" element={<ThreeBhkLuxury />} />
+            <Route path="/commercial-property-kandivali-west" element={<CommercialProperty />} />
+            <Route path="/rental-flats-kandivali-west" element={<RentalFlats />} />
+            <Route path="/resale-flats-kandivali-west" element={<ResaleFlats />} />
+            <Route path="/properties-in-borivali-west" element={<PropertiesBorivaliWest />} />
+            <Route path="/properties-in-malad-west" element={<PropertiesMaladWest />} />
+            <Route path="/real-estate-agent-kandivali-west" element={<RealEstateAgentKandivali />} />
+            <Route path="/property-valuation-kandivali" element={<PropertyValuation />} />
+            <Route path="/nri-real-estate-services-mumbai" element={<NriRealEstateServices />} />
+            <Route path="/home-loans-property-consultant" element={<HomeLoansConsultant />} />
+            <Route path="/seo-keywords-directory" element={<SeoKeywordsDirectory />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </div>
+
+        {/* Shared Footer */}
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
